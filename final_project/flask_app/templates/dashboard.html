@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events in San Diego, California</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap" rel="stylesheet">
+
+    <style>
+        body {font-family: 'BIZ UDPMincho', serif !important;}
+    </style>
+
+</head>
+<body>
+    <div class="col-8 mx-auto">
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Welcome, {{ user.first_name }}!</h1>
+        <div class="d-flex justify-content-around">
+        <a href="/logout" class="btn btn-dark" align="right">Logout</a></p> 
+        </div>
+    </div>       
+    </nav>
+    <br>
+    <div class="col-7 mx-auto">
+        <table class="table table-hover">
+            <thead>
+                <th>Event Name</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Actions</th>              
+            </thead>
+            <tbody>
+                {% for event in events %}
+                    <tr>    
+                        <td>{{event.title}}</td>
+                        <td>{{event.location}}</td>
+                        <td>{{event.date}} </td>
+                        <td>
+                            
+                            {% if event.user_id == session.user_id %}
+                            <a href="/destroy/event/{{event.id}}">Delete </a>
+                            <a href="/edit/{{event.id}}">Edit</a>
+                                {% endif %}
+                            <a href="/show/{{event.id}}">View</a>
+                            
+                        </td>    
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p align="right"><a href="/new/event" class="btn btn-info">Add An Event</a></p>
+    
+    </div>
+    
+</body>
+</html>
